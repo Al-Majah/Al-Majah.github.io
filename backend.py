@@ -1,6 +1,7 @@
 from flask import Flask, request, jsonify
 import pickle
 import numpy as np
+from waitress import serve  # Import Waitress for production server
 
 # Load trained model
 model = pickle.load(open("ml_model.pkl", "rb"))
@@ -19,4 +20,4 @@ def predict():
     return jsonify({"predicted_exam_score": prediction})
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    serve(app, host="0.0.0.0", port=5000)  # Use Waitress instead of app.run()
