@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exam Score Predictor</title>
+</head>
+<body>
+    <h2>Predict Your Exam Score</h2>
+    <form id="predictionForm">
+        <input type="number" id="study_hours" placeholder="Study Hours per Day">
+        <input type="number" id="mental_health" placeholder="Mental Health Rating">
+        <input type="number" id="social_media" placeholder="Social Media Hours">
+        <input type="number" id="sleep_hours" placeholder="Sleep Hours">
+        <input type="number" id="netflix_hours" placeholder="Netflix Hours">
+        <input type="number" id="exercise_frequency" placeholder="Exercise Frequency">
+        <input type="number" id="attendance" placeholder="Attendance Percentage">
+        <button type="submit">Predict</button>
+    </form>
+    <h3 id="result"></h3>
+
+    <script>
+        document.getElementById("predictionForm").addEventListener("submit", async function(event) {
+            event.preventDefault();
+            
+            let data = {
+                study_hours_per_day: parseFloat(document.getElementById("study_hours").value),
+                mental_health_rating: parseFloat(document.getElementById("mental_health").value),
+                social_media_hours: parseFloat(document.getElementById("social_media").value),
+                sleep_hours: parseFloat(document.getElementById("sleep_hours").value),
+                netflix_hours: parseFloat(document.getElementById("netflix_hours").value),
+                exercise_frequency: parseFloat(document.getElementById("exercise_frequency").value),
+                attendance_percentage: parseFloat(document.getElementById("attendance").value),
+            };
+
+            let response = await fetch("http://127.0.0.1:5000/predict", {
+                method: "POST",
+                headers: {"Content-Type": "application/json"},
+                body: JSON.stringify(data)
+            });
+            let result = await response.json();
+            document.getElementById("result").innerText = "Predicted Exam Score: " + result.predicted_exam_score;
+        });
+    </script>
+
+</body>
+</html>
