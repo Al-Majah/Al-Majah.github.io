@@ -1,4 +1,5 @@
 from flask import Flask, request, jsonify
+from flask_cors import CORS  # Import CORS
 import pickle
 import numpy as np
 from waitress import serve  # Import Waitress for production server
@@ -7,6 +8,7 @@ from waitress import serve  # Import Waitress for production server
 model = pickle.load(open("ml_model.pkl", "rb"))
 
 app = Flask(__name__)
+CORS(app)  # Enable CORS for all routes
 
 @app.route("/predict", methods=["POST"])
 def predict():
