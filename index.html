@@ -33,7 +33,7 @@
                 attendance_percentage: parseFloat(document.getElementById("attendance").value),
             };
 
-            let response = await fetch("https://al-majah-github-io.onrender.com", {
+            let response = await fetch("https://al-majah-github-io.onrender.com/predict", {
                 method: "POST",
                 headers: {"Content-Type": "application/json"},
                 body: JSON.stringify(data)
