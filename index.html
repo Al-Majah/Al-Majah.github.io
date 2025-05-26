@@ -1,81 +1,269 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Exam Score Predictor</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 20px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            min-height: 100vh;
-            background-color: #f4f4f4;
-        }
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Ratings Guidelines with Machine Learning Integration</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
 
-        h2 {
-            text-align: center;
-        }
+  body {
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    color: #edf2f7;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 2rem 1rem;
+    transition: background 0.5s ease;
+  }
 
-        form {
-            background: white;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            width: 100%;
-            max-width: 400px;
-            display: flex;
-            flex-direction: column;
-        }
+  .container {
+    display: flex;
+    max-width: 1100px;
+    width: 100%;
+    gap: 2rem;
+    flex-wrap: nowrap;
+    align-items: stretch;
+    box-shadow: 0 0 40px rgba(255, 255, 255, 0.1);
+    border-radius: 20px;
+    background: rgba(255 255 255 / 0.05);
+    padding: 1.5rem;
+  }
 
-        input {
-            margin: 10px 0;
-            padding: 10px;
-            font-size: 16px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            width: 100%;
-        }
+  /* Left: Rating guidelines */
+  .guidelines {
+    flex: 1 1 45%;
+    background: rgba(255 255 255 / 0.15);
+    border-radius: 24px;
+    box-shadow: 0 10px 40px rgb(255 255 255 / 0.15);
+    padding: 2rem 2.5rem;
+    display: flex;
+    flex-direction: column;
+    height: 650px;
+    overflow-y: auto;
+  }
 
-        button {
-            padding: 10px;
-            font-size: 16px;
-            border: none;
-            background-color: #28a745;
-            color: white;
-            cursor: pointer;
-            border-radius: 5px;
-        }
+  .guidelines::-webkit-scrollbar {
+    width: 8px;
+  }
+  .guidelines::-webkit-scrollbar-thumb {
+    background: #ffde59;
+    border-radius: 10px;
+  }
 
-        button:hover {
-            background-color: #218838;
-        }
+  .guidelines h1 {
+    margin-top: 0;
+    font-weight: 700;
+    font-size: 2.8rem;
+    text-align: center;
+    margin-bottom: 2rem;
+    text-shadow: 0 3px 8px rgba(0,0,0,0.4);
+    letter-spacing: 1.2px;
+  }
 
-        h3 {
-            margin-top: 20px;
-            text-align: center;
-        }
-    </style>
+  .guideline {
+    background: rgba(255 255 255 / 0.25);
+    border-radius: 16px;
+    padding: 1.2rem 2rem;
+    margin-bottom: 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow:
+      inset 0 0 15px rgba(255 255 255 / 0.3),
+      0 3px 8px rgba(0 0 0 / 0.2);
+    transition: background-color 0.3s ease;
+    cursor: default;
+  }
+
+  .guideline:hover {
+    background: rgba(255 255 255 / 0.35);
+    box-shadow:
+      inset 0 0 20px rgba(255 255 255 / 0.5),
+      0 5px 12px rgba(0 0 0 / 0.3);
+  }
+
+  .guideline:last-child {
+    margin-bottom: 0;
+  }
+
+  .guideline-label {
+    font-weight: 700;
+    font-size: 1.3rem;
+    text-shadow: 0 1px 3px rgba(0,0,0,0.5);
+    letter-spacing: 0.03em;
+  }
+
+  .rating-range {
+    font-weight: 600;
+    font-size: 1.2rem;
+    color: #2b2a0f;
+    background: #ffde59;
+    padding: 0.35rem 1.2rem;
+    border-radius: 50px;
+    box-shadow: 0 5px 14px rgb(255 222 89 / 0.7);
+    min-width: 90px;
+    text-align: center;
+    font-family: 'Courier New', Courier, monospace;
+    user-select: none;
+    letter-spacing: 0.04em;
+    transition: box-shadow 0.2s ease;
+  }
+
+  .rating-range:hover {
+    box-shadow: 0 7px 22px rgb(255 222 89 / 0.9);
+  }
+
+  /* Right: Machine Learning iframe */
+  .ml-integration {
+    flex: 1 1 55%;
+    background: rgba(255 255 255 / 0.15);
+    border-radius: 24px;
+    box-shadow:
+      0 10px 40px rgb(255 255 255 / 0.3),
+      inset 0 0 30px rgba(255 255 255 / 0.25);
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    height: 650px;
+  }
+
+  .ml-integration h2 {
+    margin: 0 0 1rem 0;
+    font-weight: 700;
+    font-size: 2.4rem;
+    text-align: center;
+    color: #2b2a0f;
+    text-shadow: 0 2px 6px rgba(0,0,0,0.25);
+    letter-spacing: 1.1px;
+  }
+
+  .ml-integration form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-bottom: 1rem;
+  }
+
+  .ml-integration input {
+    padding: 0.8rem;
+    border: none;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    font-size: 1rem;
+    transition: box-shadow 0.3s ease;
+  }
+
+  .ml-integration input:focus {
+    outline: none;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+  }
+
+  .ml-integration button {
+    padding: 0.8rem;
+    background-color: #ffde59;
+    color: #2b2a0f;
+    font-weight: 700;
+    font-size: 1.1rem;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(255, 222, 89, 0.5);
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .ml-integration button:hover {
+    background-color: #f6d943;
+    box-shadow: 0 6px 15px rgba(255, 222, 89, 0.7);
+  }
+
+  #result {
+    font-size: 1.5rem;
+    font-weight: 600;
+    text-align: center;
+    color: #ffde59;
+  }
+
+  footer {
+    margin-top: auto;
+    padding: 1rem;
+    font-size: 0.95rem;
+    color: #ddd;
+    text-align: center;
+    width: 100%;
+    user-select: none;
+    letter-spacing: 0.08em;
+  }
+
+  @media (max-width: 900px) {
+    .container {
+      flex-wrap: wrap;
+      flex-direction: column;
+      align-items: center;
+      max-width: 95vw;
+    }
+    .guidelines, .ml-integration {
+      flex-basis: 100%;
+      max-width: 680px;
+      height: auto;
+    }
+    iframe {
+      height: 500px;
+    }
+  }
+</style>
 </head>
 <body>
-    <h2>Predict Your Exam Score</h2>
-    <form id="predictionForm">
-        <input type="number" id="study_hours" placeholder="Study Hours per Day">
-        <input type="number" id="mental_health" placeholder="Mental Health Rating">
-        <input type="number" id="social_media" placeholder="Social Media Hours">
-        <input type="number" id="sleep_hours" placeholder="Sleep Hours">
-        <input type="number" id="netflix_hours" placeholder="Netflix Hours">
-        <input type="number" id="exercise_frequency" placeholder="Exercise Frequency">
-        <input type="number" id="attendance" placeholder="Attendance Percentage">
+  <div class="container" role="main">
+    <section class="guidelines" aria-label="Ratings Guidelines">
+      <h1>Ratings Guidelines</h1>
+      <div class="guideline" tabindex="0">
+        <div class="guideline-label">Study Hours Per Day</div>
+        <div class="rating-range">1 - 24</div>
+      </div>
+      <div class="guideline" tabindex="0">
+        <div class="guideline-label">Mental Health Rating</div>
+        <div class="rating-range">1 - 10</div>
+      </div>
+      <div class="guideline" tabindex="0">
+        <div class="guideline-label">Social Media Hours</div>
+        <div class="rating-range">1 - 24</div>
+      </div>
+      <div class="guideline" tabindex="0">
+        <div class="guideline-label">Sleep Hours</div>
+        <div class="rating-range">1 - 24</div>
+      </div>
+      <div class="guideline" tabindex="0">
+        <div class="guideline-label">Netflix Hours</div>
+        <div class="rating-range">1 - 24</div>
+      </div>
+      <div class="guideline" tabindex="0">
+        <div class="guideline-label">Exercise Frequency</div>
+        <div class="rating-range">1 - 10</div>
+      </div>
+      <div class="guideline" tabindex="0">
+        <div class="guideline-label">Attendance Percentage</div>
+        <div class="rating-range">1 - 100</div>
+      </div>
+    </section>
+    <section class="ml-integration" aria-label="Machine Learning Integration">
+      <h2>Predict Your Exam Score</h2>
+      <form id="predictionForm">
+        <input type="number" id="study_hours" placeholder="Study Hours per Day" required>
+        <input type="number" id="mental_health" placeholder="Mental Health Rating" required>
+        <input type="number" id="social_media" placeholder="Social Media Hours" required>
+        <input type="number" id="sleep_hours" placeholder="Sleep Hours" required>
+        <input type="number" id="netflix_hours" placeholder="Netflix Hours" required>
+        <input type="number" id="exercise_frequency" placeholder="Exercise Frequency" required>
+        <input type="number" id="attendance" placeholder="Attendance Percentage" required>
         <button type="submit">Predict</button>
-    </form>
-    <h3 id="result"></h3>
+      </form>
+      <h3 id="result"></h3>
 
-    <script>
+      <script>
         document.getElementById("predictionForm").addEventListener("submit", async function(event) {
             event.preventDefault();
             
@@ -97,6 +285,8 @@
             let result = await response.json();
             document.getElementById("result").innerText = "Predicted Exam Score: " + result.predicted_exam_score;
         });
-    </script>
+      </script>
+    </section>
+  </div>
 </body>
 </html>
