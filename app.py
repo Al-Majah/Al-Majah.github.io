@@ -19,6 +19,7 @@ def predict():
                          data["attendance_percentage"]]).reshape(1, -1)
     
     prediction = model.predict(features)[0]  # Generate score
+    final_score = max(0, min(predicted_score, 100))
     return jsonify({"predicted_exam_score": prediction})
 
 if __name__ == "__main__":
