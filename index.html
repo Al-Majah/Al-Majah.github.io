@@ -220,45 +220,46 @@
   <div class="container" role="main">
     <section class="guidelines" aria-label="Ratings Guidelines">
       <h1>Ratings Guidelines</h1>
+      <h5>For most accurate data, use your weekly average time for each input.</h5>
       <div class="guideline" tabindex="0">
         <div class="guideline-label">Study Hours Per Day</div>
-        <div class="rating-range">1 - 24</div>
+        <div class="rating-range">0 - 12</div>
       </div>
       <div class="guideline" tabindex="0">
         <div class="guideline-label">Mental Health Rating</div>
-        <div class="rating-range">1 - 10</div>
+        <div class="rating-range">0 - 10</div>
       </div>
       <div class="guideline" tabindex="0">
-        <div class="guideline-label">Social Media Hours</div>
-        <div class="rating-range">1 - 24</div>
+        <div class="guideline-label">Social Media Hours Per Day</div>
+        <div class="rating-range">0 - 12</div>
       </div>
       <div class="guideline" tabindex="0">
         <div class="guideline-label">Sleep Hours</div>
-        <div class="rating-range">1 - 24</div>
+        <div class="rating-range">0 - 12</div>
       </div>
       <div class="guideline" tabindex="0">
         <div class="guideline-label">Netflix Hours</div>
-        <div class="rating-range">1 - 24</div>
+        <div class="rating-range">0 - 12</div>
       </div>
       <div class="guideline" tabindex="0">
-        <div class="guideline-label">Exercise Frequency</div>
-        <div class="rating-range">1 - 10</div>
+        <div class="guideline-label">Exercise Frequency (in a week)</div>
+        <div class="rating-range">0 - 7</div>
       </div>
       <div class="guideline" tabindex="0">
         <div class="guideline-label">Attendance Percentage</div>
-        <div class="rating-range">1 - 100</div>
+        <div class="rating-range">0 - 100</div>
       </div>
     </section>
     <section class="ml-integration" aria-label="Machine Learning Integration">
       <h2>Predict Your Exam Score</h2>
       <form id="predictionForm">
-        <input type="number" id="study_hours" placeholder="Study Hours per Day" required>
-        <input type="number" id="mental_health" placeholder="Mental Health Rating" required>
-        <input type="number" id="social_media" placeholder="Social Media Hours" required>
-        <input type="number" id="sleep_hours" placeholder="Sleep Hours" required>
-        <input type="number" id="netflix_hours" placeholder="Netflix Hours" required>
-        <input type="number" id="exercise_frequency" placeholder="Exercise Frequency" required>
-        <input type="number" id="attendance" placeholder="Attendance Percentage" required>
+        <input type="number" id="study_hours" placeholder="Study Hours per Day" min="0" max="12" step="0.5" required>
+        <input type="number" id="mental_health" placeholder="Mental Health Rating" min="0" max="10" step="0.5" required>
+        <input type="number" id="social_media" placeholder="Social Media Hours" min="0" max="12" step="0.5" required>
+        <input type="number" id="sleep_hours" placeholder="Sleep Hours" min="0" max="12" step="0.5" required>
+        <input type="number" id="netflix_hours" placeholder="Netflix Hours" min="0" max="12" step="0.5" required>
+        <input type="number" id="exercise_frequency" placeholder="Exercise Frequency" min="0" max="7" step="0.5" required>
+        <input type="number" id="attendance" placeholder="Attendance Percentage" min="0" max="100" step="1" required>
         <button type="submit">Predict</button>
       </form>
       <h3 id="result"></h3>
