@@ -18,9 +18,9 @@ def predict():
                          data["netflix_hours"], data["exercise_frequency"], 
                          data["attendance_percentage"]]).reshape(1, -1)
     
-    prediction = model.predict(features)[0]  # Generate score
+    predicted_score = model.predict(features)[0]  # Generate score
     final_score = max(0, min(predicted_score, 100))
-    return jsonify({"predicted_exam_score": prediction})
+    return jsonify({"predicted_exam_score": final_score})
 
 if __name__ == "__main__":
     serve(app, host="0.0.0.0", port=5000)  # Use Waitress instead of app.run()
